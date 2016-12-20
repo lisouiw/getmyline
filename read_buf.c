@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   read_buf.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/13 06:06:19 by ltran             #+#    #+#             */
-/*   Updated: 2016/12/20 08:21:49 by ltran            ###   ########.fr       */
+/*   Created: 2016/12/20 01:08:20 by ltran             #+#    #+#             */
+/*   Updated: 2016/12/20 01:38:50 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-
-#define BUFF_SIZE 4
-
-#include "./../libft/libft.h"
-#include <fcntl.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <fcntl.h>
 
-void	*ft_strchr(const char *s, int c);
-size_t	ft_strlen(const char *str);
-char	*ft_strncat(char *restrict dst, const char *restrict src, size_t n);
-void	*ft_strcpy(char *dst, const char *src);
+int		main(int argc, char **argv)
+{
+	int		fd;
+	int		rd;
+	char 	buf[2];
+	char	*moi = "Acoucou";
+	char	*toi = (moi + 1);
 
-#endif
+	fd = open(argv[1], O_RDWR);
+	rd = read(fd, buf, 2);
+	puts(buf);
+	rd = read(fd, buf, 2);
+	puts(buf);
+	puts(moi);
+	puts(toi);
+	return (0);
+}

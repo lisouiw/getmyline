@@ -1,28 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/13 06:06:19 by ltran             #+#    #+#             */
-/*   Updated: 2016/12/20 08:21:49 by ltran            ###   ########.fr       */
+/*   Created: 2016/12/19 19:48:15 by ltran             #+#    #+#             */
+/*   Updated: 2016/12/19 22:01:29 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-
-#define BUFF_SIZE 4
-
-#include "./../libft/libft.h"
+#include <stdio.h>
+#include <sys/uio.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include <stdio.h>
 
-void	*ft_strchr(const char *s, int c);
-size_t	ft_strlen(const char *str);
-char	*ft_strncat(char *restrict dst, const char *restrict src, size_t n);
-void	*ft_strcpy(char *dst, const char *src);
+void	*ft_memchr(const void *s, int c, size_t n)
+{
+	unsigned int	i;
+	const char		*s1;
+	char			*b;
 
-#endif
+	s1 = s;
+	b = (char *)s1;
+	i = 0;
+	while (i < n)
+	{
+		if (b[i] == (char)c)
+			return (b + i);
+		i++;
+	}
+	return (NULL);
+}
+
+int		main(int argc, char **argv)
+{
+	char	*c;
+	int		fd;
+	ssize_t		rd;
+	char	buf[100];
+
+	fd = open(argv[1], O_RDWR);
+	rd = read(fd, buf, 100);
+	c = ft_memch(buf, 'n', 20);
+	puts(c);
+}

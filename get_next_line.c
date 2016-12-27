@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 06:06:29 by ltran             #+#    #+#             */
-/*   Updated: 2016/12/27 04:45:59 by ltran            ###   ########.fr       */
+/*   Updated: 2016/12/27 08:30:27 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int		get_next_line(int fd, char **line)
 
 	while (rd > 0 || !rd)
 	{	
-		while(rd > 0)
+		while(rd > 0 && rd != 0)
 		{
 			chr = retour(buf, 0, *line);
 			*line = retour(chr, 1, *line);
@@ -54,10 +54,12 @@ int		get_next_line(int fd, char **line)
 				return (1);
 			}
 			if (ft_strlen(buf) == ft_strlen(chr))
-				rd = -1;
+				rd = 0;
 		}	
 		printf("LINE = %s\n", *line);
 		rd = read(fd, buf, BUFF_SIZE);
+		if (ft_strlen(buf) != rd && rd > 0)
+			ft_strncpy(buf, buf, rd);
 		printf("|| fd = %i && rd = %i || buf = %s || line = %s\n\n", fd, rd, buf, *line);
 	}
 	return (0);

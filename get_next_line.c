@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 06:06:29 by ltran             #+#    #+#             */
-/*   Updated: 2016/12/27 08:30:27 by ltran            ###   ########.fr       */
+/*   Updated: 2016/12/29 02:57:43 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ char	*retour(char *buf, int num, char *line)
 	chr = buf;
 	if (num == 1 && line != NULL)
 	{
-		printf("LINE = %s && CHR = %s\n", line, chr);
 		chr = ft_strdup(ft_strcat(line, chr));
 	}
 	if (num == 0 || num == 2)
@@ -37,43 +36,52 @@ char	*retour(char *buf, int num, char *line)
 
 int		get_next_line(int fd, char **line)
 {
+	int				 i;
 	static int		rd;
 	static char		*chr;
 	static char		buf[BUFF_SIZE];
 
-	while (rd > 0 || !rd)
-	{	
-		while(rd > 0 && rd != 0)
-		{
-			chr = retour(buf, 0, *line);
-			*line = retour(chr, 1, *line);
-			ft_strcpy(buf, retour(buf, 2, chr));
-			if (ft_strlen(chr) != ft_strlen(buf))
-			{
-				(*line)++;
-				return (1);
-			}
-			if (ft_strlen(buf) == ft_strlen(chr))
-				rd = 0;
-		}	
-		printf("LINE = %s\n", *line);
+	i = 0;
+	if (!rd)
 		rd = read(fd, buf, BUFF_SIZE);
-		if (ft_strlen(buf) != rd && rd > 0)
-			ft_strncpy(buf, buf, rd);
-		printf("|| fd = %i && rd = %i || buf = %s || line = %s\n\n", fd, rd, buf, *line);
+	while(rd > 0 && rd != 0)
+	{
+		chr = retour(buf, 0, *line);
+		*line = retour(chr, 1, *line);
+		ft_strcpy(buf, retour(buf, 2, chr));
+		if (ft_strlen(chr) != ft_strlen(buf) || (ft_strlen(chr) == rd && rd != BUFF_SIZE))
+		{
+			printf("###line = %s\n", *line);
+			i = ft_strlen(*line);
+			while (i != 0)
+			{
+				i--;
+				(*line)++;
+			}
+			printf("len %zu\n", ft_strlen(*line));
+			printf("^^^line = %s\n", *line);
+			return (1);
+		}
+		if (ft_strlen(buf) == ft_strlen(chr) || ft_strlen(chr) == rd)
+		{
+			rd = read(fd, buf, BUFF_SIZE);
+			printf("if dc rd = %i\n", rd);
+			if (rd > 0 && ft_strlen(buf) != rd)
+				ft_strncpy(buf, buf, rd);
+		}
 	}
 	return (0);
 }
 
-int		main(int argc, char **argv)
+/*int		main(int argc, char **argv)
 {
 	int		fd;
 	char	*line = NULL;
 
 	fd = open(argv[1], O_RDWR);
-	while (&get_next_line != 0)
+	while (get_next_line != 0)
 	{
 		get_next_line(fd, &line);
 	}
 	return (0);
-}
+}*/

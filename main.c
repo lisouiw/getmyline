@@ -6,7 +6,7 @@
 /*   By: agrumbac <agrumbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/04 20:05:56 by agrumbac          #+#    #+#             */
-/*   Updated: 2017/01/08 23:50:45 by ltran            ###   ########.fr       */
+/*   Updated: 2017/01/30 15:29:17 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define CYAN "\x1B[36m"
 # define WHITE "\x1B[37m"
 # define CRESET "\x1B[0m"
-/*
+
 int	main(int ac, char **av)
 {
 	char	*line;
@@ -40,9 +40,9 @@ int	main(int ac, char **av)
 	printf(YELLOW"===========================================================\n"CRESET);
 	printf(YELLOW"=            ----> "RED"BADASS "YELLOW"GNL CHECKER !! <----            =\n"CRESET);
 	printf(YELLOW"===========================================================\n"CRESET);
-	printf(RED"error test = %d\n"CRESET, get_next_line(13, &line));
-	printf(RED"error test = %d\n"CRESET, get_next_line(-2, &line));
-	printf(RED"error test = %d\n"CRESET, get_next_line(1, NULL));
+//	printf(RED"error test = %d\n"CRESET, get_next_line(13, &line));
+//	printf(RED"error test = %d\n"CRESET, get_next_line(-2, &line));
+//	printf(RED"error test = %d\n"CRESET, get_next_line(1, NULL));
 	if (ac > 1)
 	{
 		while (i <= ac)
@@ -51,14 +51,14 @@ int	main(int ac, char **av)
 			i++;
 		}
 		i = 1;
-		for (int j = 0; j < 10; j++)
+		for (int j = 0; j < 800; j++)
 		{
 			i = 1;
 			while (i < ac)
 			{
 				status = get_next_line(fd[i  - 1], &line);
 				printf(CYAN"L%dGNL(%d):	%s fd[%d]		%sline{%s}\n"CRESET, j, status, fd[i - 1] % 3 ? (fd[i - 1] % 3 == 1 ? GREEN : YELLOW) : WHITE, fd[i - 1],line ? BLUE : RED , line);
-				ft_memdel((void**)&line);
+//				ft_memdel((void**)&line);
 				i++;
 			}
 		}
@@ -67,8 +67,8 @@ int	main(int ac, char **av)
 	printf(YELLOW"=        ----> END OF "RED"BADASS "YELLOW"GNL CHECKER !! <----         =\n"CRESET);
 	printf(YELLOW"===========================================================\n"CRESET);
 	return (0);
-}*/
-
+}
+/*
  int	main(int ac, char **av)
  {
  	char	*line;
@@ -96,4 +96,4 @@ int	main(int ac, char **av)
 // 	if (line)
  //		free(line);
  	return (0);
- }
+ }*/

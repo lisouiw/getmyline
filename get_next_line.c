@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/18 01:11:43 by ltran             #+#    #+#             */
-/*   Updated: 2017/02/15 06:27:47 by ltran            ###   ########.fr       */
+/*   Updated: 2017/02/16 03:57:18 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,31 +15,39 @@
 char	*ft_no(int fd, char *buf, int num, int r)
 {
 	char	*lg;
+	char	*cp;
+	char	*tmp;
 
 	lg = ft_strdup(buf);
 	while (num == 0 && r > 0 && ft_strchr(buf, '\n') == NULL)
 	{
 		r = ft_read(fd, buf, 0);
 		if (ft_strchr(buf, '\n') == NULL)
-			lg = ft_strjoin(lg, buf);
+		{
+			cp = ft_strjoin(lg, buf);
+			free(lg);
+			lg = cp;
+		}
 	}
 	if (num == 0 && r < BUFF_SIZE && ft_strchr(buf, '\n') == NULL)
 		return (lg);
 	r = ft_strlen(buf) - ft_strlen(ft_strchr(buf, '\n'));
-	lg = ft_strjoin(lg, ft_strsub(buf, 0, r));
-	while (num == 1 && r-- >= 0)
-		++buf;
-	if (num == 1)
-		return (buf);
+	tmp = ft_strsub(buf, 0, r);
+	cp = ft_strjoin(lg, tmp);
+	free(tmp);
+	free(lg);
+	lg = cp;
 	return (lg);
 }
 
-char	*ft_sep(char *buf, size_t b, size_t c)
+char	*ft_sep(char *buf, int i, int r)
 {
-	char	*lg;
-
-	lg = ft_strsub(buf, 0, (b - c));
-	return (lg);
+	r = ft_strlen(buf) - ft_strlen(ft_strchr(buf, '\n'));
+	while (i == 1 && r-- >= 0)
+		++buf;
+	if (i == 1)
+		return (buf);
+	return (ft_strsub(buf, 0, r));
 }
 
 int		ft_read(int fd, char *buf, int r)
@@ -55,7 +63,7 @@ int		get_next_line(int fd, char **line)
 
 	if (ft_strlen(buf) > 0)
 	{
-		ft_strcpy(buf, ft_no(fd, buf, 1, 0));
+		ft_strcpy(buf, ft_sep(buf, 1, 0));
 		*line = ft_strnew(0);
 		free(*line);
 		if (ft_strlen(buf) == 0 && ft_read(fd, buf, 0) == 0)
@@ -67,7 +75,7 @@ int		get_next_line(int fd, char **line)
 		return (-1);
 	if (ft_strchr(buf, '\n') != NULL)
 	{
-		*line = ft_sep(buf, ft_strlen(buf), ft_strlen(ft_strchr(buf, '\n')));
+		*line = ft_sep(buf, 0, 0);
 		return (1);
 	}
 	while (ft_strlen(buf) > 0)

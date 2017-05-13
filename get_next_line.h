@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/18 00:39:56 by ltran             #+#    #+#             */
-/*   Updated: 2017/01/18 00:45:06 by ltran            ###   ########.fr       */
+/*   Updated: 2017/05/13 17:35:02 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #define BUFF_SIZE 4
 
-#include "./../libft/libft.h"
+#include "./libft/libft.h"
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdio.h>

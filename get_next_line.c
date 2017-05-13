@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/18 01:11:43 by ltran             #+#    #+#             */
-/*   Updated: 2017/02/16 03:57:18 by ltran            ###   ########.fr       */
+/*   Updated: 2017/05/13 17:33:43 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,12 @@ int		get_next_line(int fd, char **line)
 	{
 		ft_strcpy(buf, ft_sep(buf, 1, 0));
 		*line = ft_strnew(0);
-		free(*line);
 		if (ft_strlen(buf) == 0 && ft_read(fd, buf, 0) == 0)
 			return (0);
 		if (ft_strchr(buf, '\n') == buf)
 			return (1);
 	}
-	if (!(ft_strlen(buf) > 0) && ft_read(fd, buf, 0) < 0)
+	if ((!(ft_strlen(buf) > 0) && ft_read(fd, buf, 0) < 0) || !line)
 		return (-1);
 	if (ft_strchr(buf, '\n') != NULL)
 	{

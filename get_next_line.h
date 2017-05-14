@@ -6,22 +6,19 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/18 00:39:56 by ltran             #+#    #+#             */
-/*   Updated: 2017/05/13 17:35:02 by ltran            ###   ########.fr       */
+/*   Updated: 2017/05/11 17:43:31 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-#define BUFF_SIZE 4
+# define BUFF_SIZE 3000
 
-#include "./libft/libft.h"
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
+# include "./libft/libft.h"
+# include <unistd.h>
 
 int		get_next_line(int fd, char **line);
-char	*ft_no(int fd, char *buf, int num, int r);
 int		ft_read(int fd, char *buf, int r);
 
 #endif
